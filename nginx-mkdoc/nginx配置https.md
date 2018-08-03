@@ -41,7 +41,7 @@ cd key
 openssl genrsa -out server.key 2048
 ```
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\create_keys.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/create_keys.png)
 
 **（3）生成csr文件**
 
