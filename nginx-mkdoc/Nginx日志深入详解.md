@@ -14,7 +14,7 @@ log_format用来设置日志格式，也就是日志文件中每条日志的格�
 log_format name(格式名称) type(格式样式)
 举例说明如下：
 
-![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/464291-20170522230449273-1819232912.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/464291-20170522230449273-1819232912.png)
 	                                    **图一、log_format默认格式**
 
 log_format main '\$server_name \$remote_addr - \$remote_user [\$time_local] "$request" '
