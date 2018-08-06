@@ -41,7 +41,7 @@ cd key
 openssl genrsa -out server.key 2048
 ```
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\create_keys.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/create_keys.png)
 
 **（3）生成csr文件**
 
@@ -65,7 +65,7 @@ Email Address：                          //您的邮件地址，不必输入，
 
 `openssl x509 -req -days 365 -in certreq.csr -signkey server.key  -out  mydomain.crt`
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\producte.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/producte.png)
 
 **（5）现在开始配置nginx ** 
 
@@ -107,7 +107,7 @@ Email Address：                          //您的邮件地址，不必输入，
 
 ​    `/usr/local/nginx/sbin/nginx -s reload`
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\nginx-config.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/nginx-config.png)
 
 重启过程中如果出现：
 
@@ -117,8 +117,8 @@ Email Address：                          //您的邮件地址，不必输入，
 
 `/usr/local/nginx/sbin/nginx -V`
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\ssl.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/ssl.png)
 
 **（7）访问https服务**
 
-![](C:\Users\z15746\Desktop\Nginx\Nginx-https\view.png)
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/view.png)

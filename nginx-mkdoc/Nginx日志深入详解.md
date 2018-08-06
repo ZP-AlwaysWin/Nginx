@@ -14,8 +14,8 @@ log_format用来设置日志格式，也就是日志文件中每条日志的格�
 log_format name(格式名称) type(格式样式)
 举例说明如下：
 
-![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/464291-20170522230449273-1819232912.png)
-	                                    **图一、log_format默认格式**
+![](https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/464291-20170522230449273-1819232912.png)
+	                         **图一、log_format默认格式**
 
 log_format main '\$server_name \$remote_addr - \$remote_user [\$time_local] "$request" '
 '\$status \$uptream_status \$body_bytes_sent "$http_referer" '
@@ -60,7 +60,7 @@ log_format main '\$server_name \$remote_addr - \$remote_user [\$time_local] "$re
 **需要注意的是：log_format配置必须放在http内，否则会出现如下警告信息：**
 nginx: [warn] the "log_format" directive may be used only on "http" level in /etc/nginx/nginx.conf:97
 
-#####（2）access_log
+##### (2)access_log
 
 access_log指令用来指定日志文件的存放路径（包含日志文件名）、格式和缓存大小，具体如下：
 access_log path(存放路径) [format(自定义日志格式名称) [buffer=size | off]]
@@ -80,6 +80,7 @@ error_log path(存放路径) level(日志等级)
 path含义同access_log，level表示日志等级，具体如下：
 [ debug | info | notice | warn | error | crit ]
 从左至右，日志详细程度逐级递减，即debug最详细，crit最少。
+
 **举例说明如下：**
 error_log logs/error.log info;
 需要注意的是：error_log off并不能关闭错误日志，而是会将错误日志记录到一个文件名为off的文件中。
