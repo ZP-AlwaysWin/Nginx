@@ -302,6 +302,79 @@ http {
 }
 ```
 
+**负载均衡的几种常用负载方式在这里详细罗列一下：**
+####1、RR(默认)
+
+每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。
+```
+    upstream test {
+        server localhost:8080;
+        server localhost:8081;
+    }
+    server {
+        listen       81;                                                        
+        server_name  localhost;                                              
+        client_max_body_size 1024M;
+
+        location / {
+            proxy_pass http://test;
+            proxy_set_header Host $host:$server_port;
+        }
+    }
+```
+负载均衡的核心代码为 
+```
+    upstream test {
+        server localhost:8080;
+        server localhost:8081;
+    }
+```
+这里配置了2台服务器，当然实际上是一台，只是端口不一样而已，而8081的服务器是不存在的,也就是说访问不到，但是我们访问 http://localhost 的时候,也不会有问题，会默认跳转到 http://localhost:8080 具体是因为Nginx会自动判断服务器的状态，如果服务器处于不能访问(服务器挂了)，就不会跳转到这台服务器，所以也避免了一台服务器挂了影响使用的情况，由于Nginx默认是RR策略，所以我们不需要其他更多的设置。
+
+####2、权重
+
+指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 例如
+```
+    upstream test {
+        server localhost:8080 weight=9;
+        server localhost:8081 weight=1;
+    }
+```
+那么10次一般只会有1次会访问到8081，而有9次会访问到8080 
+
+###3、ip_hash
+
+上面的2种方式都有一个问题，那就是下一个请求来的时候请求可能分发到另外一个服务器，当我们的程序不是无状态的时候(采用了session保存数据)，这时候就有一个很大的很问题了，比如把登录信息保存到了session中，那么跳转到另外一台服务器的时候就需要重新登录了，所以很多时候我们需要一个客户只访问一个服务器，那么就需要用iphash了，iphash的每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。
+```
+    upstream test {
+        ip_hash;
+        server localhost:8080;
+        server localhost:8081;
+    }
+```
+####4、fair(第三方)
+
+按后端服务器的响应时间来分配请求，响应时间短的优先分配。
+```
+ upstream backend {
+        fair;
+        server localhost:8080;
+        server localhost:8081;
+    }
+```
+####5、url_hash(第三方)
+
+按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。 在upstream中加入hash语句，server语句中不能写入weight等其他的参数，hash_method是使用的hash算法
+```
+    upstream backend {
+        hash $request_uri;
+        hash_method crc32;
+        server localhost:8080;
+        server localhost:8081;
+    }
+```
+以上5种负载均衡各自适用不同情况下使用，所以可以根据实际情况选择使用哪种策略模式,不过fair和url_hash需要安装第三方模块才能使用，由于本文主要介绍Nginx能做的事情，所以Nginx安装第三方模块不会再本文介绍
+
 ### 网站有多个 webapp 的配置
 
 当一个网站功能越来越丰富时，往往需要将一些功能相对独立的模块剥离出来，独立维护。这样的话，通常，会有多个 webapp。
