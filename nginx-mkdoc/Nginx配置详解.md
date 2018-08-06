@@ -8,7 +8,9 @@ Nginx的稳定性、功能集、示例配置文件和低系统资源的消耗让
 
 这里我给来2张图，对正向代理与反响代理做个诠释，具体细节，大家可以翻阅下资料。
 
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.jpg" />
+</div>
 
 Nginx在做反向代理时，提供性能稳定，并且能够提供配置灵活的转发功能。Nginx可以根据不同的正则匹配，采取不同的转发策略，比如图片文件结尾的走文件服务器，动态页面走web服务器，只要你正则写的没问题，又有相对应的服务器解决方案，你就可以随心所欲的玩。并且Nginx对返回结果进行错误页跳转，异常判断等。如果被分发的服务器存在异常，他可以将请求重新转发给另外一台服务器，然后自动去除异常服务器。
 
@@ -17,9 +19,16 @@ Nginx在做反向代理时，提供性能稳定，并且能够提供配置灵活
 Nginx提供的负载均衡策略有2种：内置策略和扩展策略。内置策略为轮询，加权轮询，Ip hash。扩展策略，就天马行空，只有你想不到的没有他做不到的啦，你可以参照所有的负载均衡算法，给他一一找出来做下实现。
 上3个图，理解这三种负载均衡算法的实现
 
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/%E8%BD%AE%E8%AF%A2.jpg" />
+</div>
 
 
 Ip hash算法，对客户端请求的ip进行hash操作，然后根据hash结果将同一个客户端ip的请求分发给同一台服务器进行处理，可以解决session不共享的问题。 
+
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/iphash.jpg" />
+</div>
 
 ###　3、web缓存
 
