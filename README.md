@@ -180,14 +180,11 @@ http {
         #定义使用www.xx.com访问
         server_name  www.AlwaysWin.com;
 
-		#首页
-		index index.html
-
-
-		#编码格式
-		charset utf-8;
-
-		#代理配置参数
+	#首页
+	index index.html
+	#编码格式
+	charset utf-8;
+	#代理配置参数
         proxy_connect_timeout 180;
         proxy_send_timeout 180;
         proxy_read_timeout 180;
@@ -201,7 +198,6 @@ http {
 
         #静态文件，nginx自己处理
         location ~ ^/(images|javascript|js|css|flash|media|static)/ {
-        
             #过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
             expires 30d;
         }
