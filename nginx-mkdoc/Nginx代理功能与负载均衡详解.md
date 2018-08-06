@@ -4,6 +4,7 @@ Nginx的代理功能与负载均衡功能是最常被用到的，关于nginx的�
 ## Nginx代理服务的配置说明
 ### 1、上一篇中我们在http模块中有下面的配置，当代理遇到状态码为404时，我们把404页面导向百度。
 `error_page 404 https://www.baidu.com; #错误页`
+
 然而这个配置，细心的朋友可以发现他并没有起作用。
 
 如果我们想让他起作用，我们必须配合着下面的配置一起使用
@@ -19,7 +20,9 @@ Nginx的代理功能与负载均衡功能是最常被用到的，关于nginx的�
 `proxy_http_version 1.0 ; #Nginx服务器提供代理服务的http协议版本1.0，1.1，默认设置为1.0版本`
 ### 4、如果你的nginx服务器给2台web服务器做代理，负载均衡算法采用轮询，那么当你的一台机器web程序iis关闭，也就是说web不能访问，那么nginx服务器分发请求还是会给这台不能访问的web服务器，如果这里的响应连接时间过长，就会导致客户端的页面一直在等待响应，对用户来说体验就打打折扣，这里我们怎么避免这样的情况发生呢。这里我配张图来说明下问题。
 
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/backup.jpg" />
+</div>
 
  
 
