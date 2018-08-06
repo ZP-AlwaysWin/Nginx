@@ -180,14 +180,11 @@ http {
         #定义使用www.xx.com访问
         server_name  www.AlwaysWin.com;
 
-		#首页
-		index index.html
-
-
-		#编码格式
-		charset utf-8;
-
-		#代理配置参数
+	#首页
+	index index.html
+	#编码格式
+	charset utf-8;
+	#代理配置参数
         proxy_connect_timeout 180;
         proxy_send_timeout 180;
         proxy_read_timeout 180;
@@ -201,7 +198,6 @@ http {
 
         #静态文件，nginx自己处理
         location ~ ^/(images|javascript|js|css|flash|media|static)/ {
-        
             #过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
             expires 30d;
         }
@@ -304,7 +300,7 @@ http {
 
 **负载均衡的几种常用负载方式在这里详细罗列一下：**
 
-####1、RR(默认)
+#### 1、RR(默认)
 
 每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。
 ```
@@ -331,8 +327,11 @@ http {
     }
 ```
 这里配置了2台服务器，当然实际上是一台，只是端口不一样而已，而8081的服务器是不存在的,也就是说访问不到，但是我们访问 http://localhost 的时候,也不会有问题，会默认跳转到 http://localhost:8080 具体是因为Nginx会自动判断服务器的状态，如果服务器处于不能访问(服务器挂了)，就不会跳转到这台服务器，所以也避免了一台服务器挂了影响使用的情况，由于Nginx默认是RR策略，所以我们不需要其他更多的设置。
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/%E8%BD%AE%E8%AF%A2.jpg" />
+</div>
 
-####2、权重
+#### 2、权重
 
 指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 例如
 ```
@@ -343,7 +342,7 @@ http {
 ```
 那么10次一般只会有1次会访问到8081，而有9次会访问到8080 
 
-####3、ip_hash
+#### 3、ip_hash
 
 上面的2种方式都有一个问题，那就是下一个请求来的时候请求可能分发到另外一个服务器，当我们的程序不是无状态的时候(采用了session保存数据)，这时候就有一个很大的很问题了，比如把登录信息保存到了session中，那么跳转到另外一台服务器的时候就需要重新登录了，所以很多时候我们需要一个客户只访问一个服务器，那么就需要用iphash了，iphash的每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。
 ```
@@ -353,6 +352,15 @@ http {
         server localhost:8081;
     }
 ```
+<<<<<<< HEAD
+=======
+
+
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/iphash.jpg" />
+</div>
+
+>>>>>>> 3672170d88ab0396e434fe60779305555e7120f8
 #### 4、fair(第三方)
 
 按后端服务器的响应时间来分配请求，响应时间短的优先分配。
@@ -363,7 +371,7 @@ http {
         server localhost:8081;
     }
 ```
-####5、url_hash(第三方)
+#### 5、url_hash(第三方)
 
 按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。 在upstream中加入hash语句，server语句中不能写入weight等其他的参数，hash_method是使用的hash算法
 ```
