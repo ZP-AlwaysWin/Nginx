@@ -352,15 +352,12 @@ http {
         server localhost:8081;
     }
 ```
-<<<<<<< HEAD
-=======
 
 
 <div align="center">
 <img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/iphash.jpg" />
 </div>
 
->>>>>>> 3672170d88ab0396e434fe60779305555e7120f8
 #### 4、fair(第三方)
 
 按后端服务器的响应时间来分配请求，响应时间短的优先分配。
