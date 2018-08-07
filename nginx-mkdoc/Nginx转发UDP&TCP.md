@@ -33,14 +33,20 @@ stream {
 }
 ```
 首先，先通过3306端口访问mysql：
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/3306.png" />
+</div>
 
 接着，使用3000端口访问mysql：
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/without_nginx3000.png" />
+</div>
 
 然后，启动Nginx：
 最后使用3000端口访问mysql：
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/with_nginx3000.png" />
+</div>
 
 ### UDP转发
 目标： 发送UDP数据到3000端口，3001端口可以接收
@@ -99,4 +105,6 @@ while True:
 ```
 
 同时运行两个脚本，在client端发送数据：
-
+<div align="center">
+<img src="https://github.com/ZP-AlwaysWin/Nginx/blob/master/nginx-photos/udp-test.gif" />
+</div>
